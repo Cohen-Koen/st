@@ -81,6 +81,53 @@ const int boxdraw_bold = 0;
 const int boxdraw_braille = 0;
 
 /*
+<<<<<<<
+=======
+
+/* Terminal colors (16 first used in escape sequence) */
+static const char *colorname[] = {
+	/* 8 normal colors */
+	"black",
+	"red3",
+	"green3",
+	"yellow3",
+	"blue2",
+	"magenta3",
+	"cyan3",
+	"gray90",
+
+	/* 8 bright colors */
+	"gray50",
+	"red",
+	"green",
+	"yellow",
+	"#5c5cff",
+	"magenta",
+	"cyan",
+	"white",
+
+	[255] = 0,
+
+	/* more colors can be added after 255 to use with DefaultXX */
+	"#5c5cff",
+	"#555555",
+};
+
+
+/*
+ * Default colors (colorname index)
+ * foreground, background, cursor, reverse cursor
+ */
+unsigned int defaultfg = 7;
+unsigned int defaultbg = 0;
+static unsigned int defaultcs = 256;
+static unsigned int defaultrcs = 257;
+
+/*
+ * Default shape of cursor
+ * 2: Block ("█")
+ * 4: Underline ("_")
+>>>>>>>
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
  * it
  */
@@ -107,48 +154,46 @@ char *termname = "st-256color";
 unsigned int tabspaces = 8;
 
 /* bg opacity */
-float alpha = 0.9;
+float alpha = 0.8;
 float alphaOffset = 0.0;
 float alphaUnfocus;
 
 /* Terminal colors (16 first used in escape sequence) */
-
-/* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	        /* 8 normal colors */
-	        "#1a181a",
-		        "#f85e84",
-			        "#9ecd6f",
-				        "#e5c463",
-					        "#7accd7",
-						        "#ab9df2",
-							        "#ef9062",
-								        "#e3e1e4",
-
-									        /* 8 bright colors */
-									        "#e3e1e4",
-										        "#f85e84",
-											        "#9ecd6f",
-												        "#e5c463",
-													        "#7accd7",
-														        "#ab9df2",
-															        "#ef9062",
-																        "#e3e1e4",
-
-																	        [255] = 0,
-
-																		        /* more colors can be added after 255 to use with DefaultXX */
-																		        "#b3b3b3",
-																			        "#e3e1e4",
-																				        "#333333",
+	"#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
+	"#ff7f83",
+	"#98971a",
+	"#d721c0",
+	"#ff7500",
+	"#b16286",
+	"#fcff00",
+	"#a89984",
+	"#928374",
+	"#bf0860",
+	"#6568ae",
+	"#fabd2f",
+	"#83a598",
+	"#d3869b",
+	"#90689b",
+	"#ebdbb2",
+	[255] = 0,
+	/* more colors can be added after 255 to use with DefaultXX */
+	"#add8e6", /* 256 -> cursor */
+	"#555555", /* 257 -> rev cursor*/
+	"#282828", /* 258 -> bg */
+	"#c90000", /* 259 -> fg */
 };
 
+
+#include "autocomplete.h"
+
+#include "autocomplete.h"
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultfg = 256;
+unsigned int defaultfg = 259;
 unsigned int defaultbg = 258;
 unsigned int defaultcs = 256;
 unsigned int defaultrcs = 257;
@@ -252,6 +297,10 @@ static char *openurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -o", "externalpipe
 static char *copyurlcmd[] = { "/bin/sh", "-c", "st-urlhandler -c", "externalpipe", NULL };
 static char *copyoutput[] = { "/bin/sh", "-c", "st-copyout", "externalpipe", NULL };
 
+
+#define ACMPL_MOD ControlMask|Mod1Mask
+
+#define ACMPL_MOD ControlMask|Mod1Mask
 
 static Shortcut shortcuts[] = {
 	/* mask                 keysym          function        argument */
